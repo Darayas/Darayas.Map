@@ -7,9 +7,11 @@ using Darayas.Maps.DAL.Repository;
 using Darayas.Maps.Logger;
 using Darayas.Maps.Models.ViewInputs;
 using Darayas.Maps.Models.ViewModels;
+using Darayas.Maps.Ul.Funcs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 
 namespace Darayas.Maps.Pages.Home.Components.Map.SearchPlace
 {
@@ -42,31 +44,36 @@ namespace Darayas.Maps.Pages.Home.Components.Map.SearchPlace
                     .Where(a => a.Lng <= _NorthEastLng)
                     .Where(a => a.Lat >= _SouthWestLat)
                     .Where(a => a.Lng >= _SouthWestLng)
-                    .Select(a => new vmCompo_Places
+                    .Select(a => new vmCompo_ListSearch
                     {
-                        Category = a.tblPalceCategoris.Title,
                         ImgName = a.tblPalceCategoris.ImgName,
                         Lat = a.Lat,
                         Lng = a.Lng,
-                        Name = a.Name
-                    }).ToListAsync();
+                        Name = a.Name,
+                        Zoom = a.Zoom
+                    })
+                    .OrderBy(a => a.Name)
+                    .Skip(0)
+                    .Take(5)
+                    .ToListAsync();
+
+                Data.AddRange(qLocalPlace);
                 #endregion
 
                 #region واکشی اطلاعات از سرویس دهنده ها
-                //string _Data = Input.JsonData.Trim(new char[] { '[' }).Trim(new char[] { ']' });
-                //var JsonData = JObject.Parse(_Data);
+                var _data = await new ComponentWapper().GetDataAsync("http://photon.komoot.de/api/", new { q = Input.Address, limit = 5 });
 
+                var JsonData = JObject.Parse(_data);
+                var qData = JsonData["features"].Select(a => new vmCompo_ListSearch
+                {
+                    Lng = double.Parse(a["geometry"]["coordinates"][1].ToString()),
+                    Lat = double.Parse(a["geometry"]["coordinates"][0].ToString()),
+                    Name = (a["properties"]["state"] == null ? "" : (a["properties"]["state"] + ", ")) + a["properties"]["name"],
+                    Zoom = 13,
+                    ImgName = "marker-here.png"
+                }).ToList();
 
-                //var qData = from a in JsonData["instructions"]
-                //            select new vmCompo_GetLstRoads
-                //            {
-                //                Road = a["road"].ToString(),
-                //                Text = a["text"].ToString(),
-                //                Dist = double.Parse(a["distance"].ToString()),
-                //                Time = double.Parse(a["time"].ToString()),
-                //            };
-
-                //Data = qData.ToList();
+                Data.AddRange(qData);
                 #endregion
 
                 return Page();

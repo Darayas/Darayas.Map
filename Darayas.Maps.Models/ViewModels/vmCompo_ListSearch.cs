@@ -8,8 +8,8 @@ namespace Darayas.Maps.Models.ViewModels
     {
         public string Name { get; set; }
         public string ImgName { get; set; }
-        public string Lat { get; set; }
-        public string Lng { get; set; }
+        public double Lat { get; set; }
+        public double Lng { get; set; }
         public int Zoom { get; set; }
 
     }
