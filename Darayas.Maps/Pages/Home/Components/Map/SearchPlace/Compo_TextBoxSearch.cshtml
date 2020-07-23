@@ -1,0 +1,34 @@
+﻿@page "/Compo/SearchPlace/TextBoxSearch"
+@model Darayas.Maps.Pages.Home.Components.Map.SearchPlace.Compo_TextBoxSearchModel
+
+
+<div id="TextBoxs">
+    <div class="col-md-12" style="margin-top:15px;">
+
+        <div class="form-group">
+            <label>نام مکان یا آدرس</label>
+            <input onkeypress="LoadPlaces()" id="TxtAddress" class="form-control TxtAddress" />
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    function LoadPlaces() {
+
+        var _address = $('.TxtAddress').val();
+
+        var _lat = map.getCenter().lat;
+        var _lng = map.getCenter().lng;
+        var _zoom = map.getZoom();
+
+        $.ajax({
+            url: '/Compo/SearchPlace/ListSearchPlace',
+            type: 'get',
+            data: { Address: _address, Lat: _lat, Lng: _lng, Zoom: _zoom }
+        }).done(function (res) {
+            $('.LstPlace').html(res);
+        });
+    }
+</script>
