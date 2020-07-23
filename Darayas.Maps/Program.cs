@@ -22,5 +22,5 @@ namespace Darayas.Maps
                 {
                     webBuilder.UseStartup<Startup>();
                 });
-    }
+    } 
 }
