@@ -39,7 +39,8 @@ namespace Darayas.Maps.Pages.Home.Components.Map.SearchPlace
                 double _SouthWestLng = double.Parse(Input.SouthWest.Split(new char[] { ',' })[1].Trim());
 
                 var qLocalPlace = await repPalce.Get()
-                    .Where(a => a.Zoom <= Input.Zoom)
+                    //.Where(a => a.Zoom <= Input.Zoom)
+                    .Where(a=>a.Name.Contains(Input.Address.Trim()))
                     .Where(a => a.Lat <= _NorthEastLat)
                     .Where(a => a.Lng <= _NorthEastLng)
                     .Where(a => a.Lat >= _SouthWestLat)
@@ -66,8 +67,8 @@ namespace Darayas.Maps.Pages.Home.Components.Map.SearchPlace
                 var JsonData = JObject.Parse(_data);
                 var qData = JsonData["features"].Select(a => new vmCompo_ListSearch
                 {
-                    Lng = double.Parse(a["geometry"]["coordinates"][1].ToString()),
-                    Lat = double.Parse(a["geometry"]["coordinates"][0].ToString()),
+                    Lng = double.Parse(a["geometry"]["coordinates"][0].ToString()),
+                    Lat = double.Parse(a["geometry"]["coordinates"][1].ToString()),
                     Name = (a["properties"]["state"] == null ? "" : (a["properties"]["state"] + ", ")) + a["properties"]["name"],
                     Zoom = 13,
                     ImgName = "marker-here.png"

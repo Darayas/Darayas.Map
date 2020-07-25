@@ -19,14 +19,14 @@
 
         var _address = $('.TxtAddress').val();
 
-        var _lat = map.getCenter().lat;
-        var _lng = map.getCenter().lng;
+        var _NorthEast = map.getBounds()._northEast.lat + ", " + map.getBounds()._northEast.lng;
+        var _SouthWest = map.getBounds()._southWest.lat + ", " + map.getBounds()._southWest.lng;
         var _zoom = map.getZoom();
 
         $.ajax({
             url: '/Compo/SearchPlace/ListSearchPlace',
             type: 'get',
-            data: { Address: _address, Lat: _lat, Lng: _lng, Zoom: _zoom }
+            data: { Address: _address, NorthEast: _NorthEast, SouthWest: _SouthWest, Zoom: _zoom }
         }).done(function (res) {
             $('.LstPlace').html(res);
         });

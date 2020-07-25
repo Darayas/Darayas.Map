@@ -228,3 +228,22 @@ function LoadPlace() {
 
     });
 }
+
+function ShowPlace(_Lat, _Lng, _Zoom, _ImgName) {
+    map.remove();
+    map = null;
+
+    LoadMap(_Lat, _Lng, _Zoom);
+
+    var PlaceMarker = new L.marker(new L.latLng(_Lat, _Lng), {
+        icon: L.icon({
+            iconUrl: 'Main/img/' + _ImgName,
+            shadowUrl: 'Main/img/marker-shadow.png',
+            iconSize: [38, 38],
+            shadowSize: [41, 41],
+            iconAnchor: [22, 38],
+            shadowAnchor: [22, 62]
+        })
+    })/*.bindPopup(res[i].name)*/.addTo(map)
+
+}
