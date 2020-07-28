@@ -72,7 +72,7 @@ function LoadMap(_Lat, _Lng, _Zoom) {
     });
 
     LoadPlace();
-
+    DrawShape();
 }
 
 function WhatsHere(e) {
@@ -246,4 +246,36 @@ function ShowPlace(_Lat, _Lng, _Zoom, _ImgName) {
         })
     })/*.bindPopup(res[i].name)*/.addTo(map)
 
+}
+
+function DrawShape() {
+    L.circle(['36.55377524336089', '48.988037109375'], 30000, { color: 'green' }).addTo(map);
+
+    var Bounds = [
+        ['37.861844098370945', '46.39526367187501'],
+        ['37.514083168101116', '45.40100097656251']
+    ];
+    L.rectangle(Bounds, { color: 'red', fillColor: 'gray', fillOpacity:.7 }).addTo(map);
+
+    var latlngs =
+        [['35.17380831799959', '48.61450195312501'],
+        ['34.17999758688084', '47.86743164062501'],
+        ['35.137879119634185', '52.05322265625'],
+        ['29.6880527498568', '45.09887695312501']];
+    L.polygon(latlngs, { color: 'orange' }).addTo(map);
+
+    var latlngsPolyLine =
+        [['35.17380831799959', '48.61450195312501'],
+        ['34.17999758688084', '47.86743164062501'],
+        ['35.137879119634185', '52.05322265625'],
+        ['29.6880527498568', '45.09887695312501'],
+        ['35.17380831799959', '48.61450195312501']];
+    L.polyline(latlngsPolyLine, { color: 'Blue', weight: 10 }).addTo(map);
+
+    var svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svgElement.setAttribute('xmlns', "http://www.w3.org/2000/svg");
+    svgElement.setAttribute('viewBox', "0 0 200 200");
+    svgElement.innerHTML = '<rect width="200" height="200"/><rect x="75" y="23" width="50" height="50" style="fill:red"/><rect x="75" y="123" width="50" height="50" style="fill:#0013ff"/>';
+    var svgElementBounds = [[32, -130], [13, -100]];
+    L.svgOverlay(svgElement, svgElementBounds).addTo(map);
 }
