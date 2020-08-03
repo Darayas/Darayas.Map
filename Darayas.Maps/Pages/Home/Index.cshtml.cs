@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Darayas.Maps.Models.ViewInputs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -13,7 +14,9 @@ namespace Darayas.Maps.Pages.Home
         {
 
             return Page();
-
         }
+
+        [BindProperty(SupportsGet = true)]
+        public viIndex Input { get; set; }
     }
 }

@@ -1,6 +1,5 @@
 ﻿
 $(document).ready(function () {
-    LoadMap('36.767666', '45.707350', 7);
 
     $('.PlaceDetails .direction span').click(function () {
         ClosePlaceDetails();

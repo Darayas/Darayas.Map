@@ -75,6 +75,20 @@ function LoadMap(_Lat, _Lng, _Zoom) {
         }
     });
 
+    L.timezones.bindPopup(function (layer) {
+        //console.log(layer);
+        //console.log(layer.feature);
+        //console.log(layer.feature.properties);
+        //return layer.feature.properties.time_zone;
+        return L.Browser.ie ?
+            layer.feature.properties.time_zone :
+            new Date().toLocaleDateString("en-US", {
+                timeZone: layer.feature.properties.tz_name1st,
+                timeZoneName: "short"
+            });
+
+    }).addTo(map);
+
     LoadPlace();
     DrawShape();
 }
@@ -119,6 +133,11 @@ function AddMarkerOnClick(LatLng) {
             index: 1
         }]
     }).addTo(map);
+
+
+    var newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + "?Lat=" + LatLng.lat + "&Lng=" + LatLng.lng + "&Zoom=" + map.getZoom();
+    window.history.pushState({ path: newUrl }, '', newUrl);
+
 }
 
 function LoadRoads(_jsonData) {
