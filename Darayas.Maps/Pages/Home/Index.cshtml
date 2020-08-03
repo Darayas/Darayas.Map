@@ -45,7 +45,15 @@
     {
         <script>
             $(document).ready(function () {
-                LoadMap('36.767666', '45.707350', 7);
+                if (navigator.geolocation) {
+                    //console.log(navigator.geolocation);
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                        LoadMap(position.coords.latitude, position.coords.longitude, 8);
+                        AddMarkerOnClick(new L.latLng(position.coords.latitude, position.coords.longitude));
+                    });
+                } else {
+                    LoadMap('36.767666', '45.707350', 7);
+                }
             });
         </script>
     }
