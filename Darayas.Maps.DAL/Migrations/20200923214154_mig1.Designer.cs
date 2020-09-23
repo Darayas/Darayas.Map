@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Darayas.Maps.DAL.Migrations
 {
     [DbContext(typeof(MainContext))]
-    [Migration("20200616195959_mig1")]
+    [Migration("20200923214154_mig1")]
     partial class mig1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,59 @@ namespace Darayas.Maps.DAL.Migrations
                 .HasAnnotation("ProductVersion", "3.1.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Darayas.Maps.DAL.Models.tblPalceCategoris", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(150)")
+                        .HasMaxLength(150);
+
+                    b.Property<string>("ImgName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(150)")
+                        .HasMaxLength(150);
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(150)")
+                        .HasMaxLength(150);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("tblPalceCategoris");
+                });
+
+            modelBuilder.Entity("Darayas.Maps.DAL.Models.tblPalces", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(150)")
+                        .HasMaxLength(150);
+
+                    b.Property<string>("CateId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(150)")
+                        .HasMaxLength(150);
+
+                    b.Property<double>("Lat")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Lng")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<int>("Zoom")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CateId");
+
+                    b.ToTable("tblPalces");
+                });
 
             modelBuilder.Entity("Darayas.Maps.DAL.Models.tblUsers", b =>
                 {
@@ -225,6 +278,15 @@ namespace Darayas.Maps.DAL.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Darayas.Maps.DAL.Models.tblPalces", b =>
+                {
+                    b.HasOne("Darayas.Maps.DAL.Models.tblPalceCategoris", "tblPalceCategoris")
+                        .WithMany("tblPalces")
+                        .HasForeignKey("CateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

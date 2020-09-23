@@ -24,7 +24,7 @@ namespace Darayas.Maps.DAL.Repository
     {
         public string Get()
         {
-            return @"Server=.;Database=DarayasMaps;Trusted_Connection=True;"; // کانکشن استرینگ سرور
+            return @""; // کانکشن استرینگ سرور
         }
     }
 

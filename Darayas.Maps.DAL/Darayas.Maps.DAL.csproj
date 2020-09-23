@@ -5,17 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20200623205721_mig2.cs" />
-    <Compile Remove="Migrations\20200623205721_mig2.Designer.cs" />
-    <Compile Remove="Migrations\20200718212115_mig4.cs" />
-    <Compile Remove="Migrations\20200718212115_mig4.Designer.cs" />
-    <Compile Remove="Migrations\20200718212231_mig4.cs" />
-    <Compile Remove="Migrations\20200718212231_mig4.Designer.cs" />
-    <Compile Remove="Migrations\20200718212837_mig5.cs" />
-    <Compile Remove="Migrations\20200718212837_mig5.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.5" />

@@ -49,6 +49,19 @@ namespace Darayas.Maps.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "tblPalceCategoris",
+                columns: table => new
+                {
+                    Id = table.Column<string>(maxLength: 150, nullable: false),
+                    ImgName = table.Column<string>(maxLength: 150, nullable: false),
+                    Title = table.Column<string>(maxLength: 150, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tblPalceCategoris", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -154,6 +167,28 @@ namespace Darayas.Maps.DAL.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "tblPalces",
+                columns: table => new
+                {
+                    Id = table.Column<string>(maxLength: 150, nullable: false),
+                    CateId = table.Column<string>(maxLength: 150, nullable: false),
+                    Name = table.Column<string>(maxLength: 100, nullable: false),
+                    Lat = table.Column<double>(nullable: false),
+                    Lng = table.Column<double>(nullable: false),
+                    Zoom = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tblPalces", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_tblPalces_tblPalceCategoris_CateId",
+                        column: x => x.CateId,
+                        principalTable: "tblPalceCategoris",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -192,6 +227,11 @@ namespace Darayas.Maps.DAL.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tblPalces_CateId",
+                table: "tblPalces",
+                column: "CateId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -212,10 +252,16 @@ namespace Darayas.Maps.DAL.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "tblPalces");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "tblPalceCategoris");
         }
     }
 }
