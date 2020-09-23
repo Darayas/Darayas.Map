@@ -13,7 +13,7 @@ var ClickedMarkerIcon = L.icon({
 
 function LoadMap(_Lat, _Lng, _Zoom) {
     map = null;
-    var CopyRight = 'قدرت گرفته از: <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> | وبسایت <a  class="bold" href="https://dotnetLearn.com">دات نت لرن</a> | طراح و برنامه نویس: <a class="bold" href="https://dotnetlearn.com/fa/Resumes/MohammadRezaAhmadi">محمدرضا احمدی</a> | سورس در <a class="bold" href="https://github.com/reza9025/DotnetLearn.Maps">github</a>';
+    var CopyRight = 'قدرت گرفته از: <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> | وبسایت <a  class="bold" href="https://dotnetLearn.com">دات نت لرن</a> | طراح و برنامه نویس: <a class="bold" href="https://dotnetlearn.com/fa/Resumes/MohammadRezaAhmadi">محمدرضا احمدی</a> | سورس در <a class="bold" href="https://github.com/Darayas/Darayas.Map">github</a>';
     map = L.map('map', {
         center: [_Lat, _Lng],
         zoom: _Zoom,
